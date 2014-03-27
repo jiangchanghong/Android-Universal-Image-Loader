@@ -20,7 +20,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Looper;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import com.nostra13.universalimageloader.core.assist.ViewScaleType;
 import com.nostra13.universalimageloader.utils.L;
 
 import java.lang.ref.Reference;
@@ -126,15 +125,6 @@ public class ImageViewAware implements ImageAware {
 			return height;
 		}
 		return 0;
-	}
-
-	@Override
-	public ViewScaleType getScaleType() {
-		ImageView imageView = imageViewRef.get();
-		if (imageView != null) {
-			return ViewScaleType.fromImageView(imageView);
-		}
-		return null;
 	}
 
 	@Override

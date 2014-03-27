@@ -48,11 +48,7 @@ public class ImageGalleryActivity extends BaseActivity {
 
 		options = new DisplayImageOptions.Builder()
 			.showImageOnLoading(R.drawable.ic_stub)
-			.showImageForEmptyUri(R.drawable.ic_empty)
 			.showImageOnFail(R.drawable.ic_error)
-			.cacheInMemory(true)
-			.cacheOnDisc(true)
-			.considerExifParams(true)
 			.bitmapConfig(Bitmap.Config.RGB_565)
 			.build();
 
@@ -95,7 +91,8 @@ public class ImageGalleryActivity extends BaseActivity {
 			if (imageView == null) {
 				imageView = (ImageView) getLayoutInflater().inflate(R.layout.item_gallery_image, parent, false);
 			}
-			imageLoader.displayImage(imageUrls[position], imageView, options);
+			imageLoader.displayImage(imageUrls[position],
+                    imageView, options,false);
 			return imageView;
 		}
 	}

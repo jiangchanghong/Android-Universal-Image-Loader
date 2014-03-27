@@ -51,7 +51,6 @@ public interface ImageAware {
 	 * Returns {@linkplain com.nostra13.universalimageloader.core.assist.ViewScaleType scale type} which is used for
 	 * scaling image for this image aware view.
 	 */
-	ViewScaleType getScaleType();
 
 	/**
 	 * Returns wrapped Android {@link android.view.View View}. Can return <b>null</b> if no view is wrapped.<br />

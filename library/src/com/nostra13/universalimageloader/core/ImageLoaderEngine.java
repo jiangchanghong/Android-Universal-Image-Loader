@@ -15,10 +15,7 @@
  *******************************************************************************/
 package com.nostra13.universalimageloader.core;
 
-import android.view.View;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.assist.FlushedInputStream;
-import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.nostra13.universalimageloader.cache.disc.DiscCacheAware;
 import com.nostra13.universalimageloader.core.imageaware.ImageAware;
 
 import java.util.Collections;
@@ -53,6 +50,7 @@ class ImageLoaderEngine {
 	private final AtomicBoolean networkDenied = new AtomicBoolean(false);
 	private final AtomicBoolean slowNetwork = new AtomicBoolean(false);
 
+    DiscCacheAware discCache;
 	private final Object pauseLock = new Object();
 
 	ImageLoaderEngine(ImageLoaderConfiguration configuration) {
@@ -65,11 +63,16 @@ class ImageLoaderEngine {
 	}
 
 	/** Submits task to execution pool */
-	void submit(final LoadAndDisplayImageTask task) {
+	void submit(final LoadAndDisplayImageTask task, final boolean isbig) {
 		taskDistributor.execute(new Runnable() {
 			@Override
 			public void run() {
-				boolean isImageCachedOnDisc = configuration.discCache.get(task.getLoadingUri()).exists();
+                if (isbig) {
+                    discCache = configuration.discCacheForBig;
+                } else {
+                    discCache = configuration.discCacheForSmall;
+                }
+				boolean isImageCachedOnDisc = discCache.get(task.getLoadingUri()).exists();
 				initExecutorsIfNeed();
 				if (isImageCachedOnDisc) {
 					taskExecutorForCachedImages.execute(task);
@@ -80,17 +83,13 @@ class ImageLoaderEngine {
 		});
 	}
 
-	/** Submits task to execution pool */
-	void submit(ProcessAndDisplayImageTask task) {
-		initExecutorsIfNeed();
-		taskExecutorForCachedImages.execute(task);
-	}
+
 
 	private void initExecutorsIfNeed() {
-		if (!configuration.customExecutor && ((ExecutorService) taskExecutor).isShutdown()) {
+		if ( ((ExecutorService) taskExecutor).isShutdown()) {
 			taskExecutor = createTaskExecutor();
 		}
-		if (!configuration.customExecutorForCachedImages && ((ExecutorService) taskExecutorForCachedImages)
+		if (((ExecutorService) taskExecutorForCachedImages)
 				.isShutdown()) {
 			taskExecutorForCachedImages = createTaskExecutor();
 		}
@@ -127,28 +126,8 @@ class ImageLoaderEngine {
 		cacheKeysForImageAwares.remove(imageAware.getId());
 	}
 
-	/**
-	 * Denies or allows engine to download images from the network.<br /> <br /> If downloads are denied and if image
-	 * isn't cached then {@link ImageLoadingListener#onLoadingFailed(String, View, FailReason)} callback will be fired
-	 * with {@link FailReason.FailType#NETWORK_DENIED}
-	 *
-	 * @param denyNetworkDownloads pass <b>true</b> - to deny engine to download images from the network; <b>false</b> -
-	 *                             to allow engine to download images from network.
-	 */
-	void denyNetworkDownloads(boolean denyNetworkDownloads) {
-		networkDenied.set(denyNetworkDownloads);
-	}
 
-	/**
-	 * Sets option whether ImageLoader will use {@link FlushedInputStream} for network downloads to handle <a
-	 * href="http://code.google.com/p/android/issues/detail?id=6066">this known problem</a> or not.
-	 *
-	 * @param handleSlowNetwork pass <b>true</b> - to use {@link FlushedInputStream} for network downloads; <b>false</b>
-	 *                          - otherwise.
-	 */
-	void handleSlowNetwork(boolean handleSlowNetwork) {
-		slowNetwork.set(handleSlowNetwork);
-	}
+
 
 	/**
 	 * Pauses engine. All new "load&display" tasks won't be executed until ImageLoader is {@link #resume() resumed}.<br
@@ -200,11 +179,5 @@ class ImageLoaderEngine {
 		return pauseLock;
 	}
 
-	boolean isNetworkDenied() {
-		return networkDenied.get();
-	}
 
-	boolean isSlowNetwork() {
-		return slowNetwork.get();
-	}
 }

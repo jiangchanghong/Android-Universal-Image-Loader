@@ -20,7 +20,6 @@ import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
-import com.nostra13.universalimageloader.core.assist.LoadedFrom;
 import com.nostra13.universalimageloader.core.imageaware.ImageAware;
 
 /**
@@ -59,14 +58,9 @@ public class FadeInBitmapDisplayer implements BitmapDisplayer {
 	}
 
 	@Override
-	public void display(Bitmap bitmap, ImageAware imageAware, LoadedFrom loadedFrom) {
+	public void display(Bitmap bitmap, ImageAware imageAware) {
 		imageAware.setImageBitmap(bitmap);
-
-		if ((animateFromNetwork && loadedFrom == LoadedFrom.NETWORK) ||
-				(animateFromDisc && loadedFrom == LoadedFrom.DISC_CACHE) ||
-				(animateFromMemory && loadedFrom == LoadedFrom.MEMORY_CACHE)) {
 			animate(imageAware.getWrappedView(), durationMillis);
-		}
 	}
 
 	/**

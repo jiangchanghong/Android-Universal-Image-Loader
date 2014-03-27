@@ -35,5 +35,5 @@ public interface ImageDecoder {
 	 * @return
 	 * @throws IOException
 	 */
-	Bitmap decode(ImageDecodingInfo imageDecodingInfo) throws IOException;
+	Bitmap decode(ImageDecodingInfo imageDecodingInfo,boolean isbig) throws IOException;
 }

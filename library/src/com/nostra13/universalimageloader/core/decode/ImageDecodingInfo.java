@@ -19,9 +19,7 @@ import android.annotation.TargetApi;
 import android.graphics.BitmapFactory.Options;
 import android.os.Build;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.assist.ImageSize;
-import com.nostra13.universalimageloader.core.assist.ViewScaleType;
 import com.nostra13.universalimageloader.core.download.ImageDownloader;
 
 /**
@@ -35,29 +33,22 @@ public class ImageDecodingInfo {
 	private final String imageKey;
 	private final String imageUri;
 	private final ImageSize targetSize;
-
-	private final ImageScaleType imageScaleType;
-	private final ViewScaleType viewScaleType;
-
 	private final ImageDownloader downloader;
-	private final Object extraForDownloader;
-
-	private final boolean considerExifParams;
 	private final Options decodingOptions;
 
-	public ImageDecodingInfo(String imageKey, String imageUri, ImageSize targetSize, ViewScaleType viewScaleType,
-							 ImageDownloader downloader, DisplayImageOptions displayOptions) {
+	public ImageDecodingInfo(String imageKey,
+                             String imageUri,
+                             ImageSize targetSize,
+
+							 ImageDownloader downloader,
+                             DisplayImageOptions displayOptions) {
 		this.imageKey = imageKey;
 		this.imageUri = imageUri;
 		this.targetSize = targetSize;
 
-		this.imageScaleType = displayOptions.getImageScaleType();
-		this.viewScaleType = viewScaleType;
 
 		this.downloader = downloader;
-		this.extraForDownloader = displayOptions.getExtraForDownloader();
 
-		considerExifParams = displayOptions.isConsiderExifParams();
 		decodingOptions = new Options();
 		copyOptions(displayOptions.getDecodingOptions(), decodingOptions);
 	}
@@ -111,29 +102,13 @@ public class ImageDecodingInfo {
 	 * @return {@linkplain ImageScaleType Scale type for image sampling and scaling}. This parameter affects result size
 	 * of decoded bitmap.
 	 */
-	public ImageScaleType getImageScaleType() {
-		return imageScaleType;
-	}
 
-	/** @return {@linkplain ViewScaleType View scale type}. This parameter affects result size of decoded bitmap. */
-	public ViewScaleType getViewScaleType() {
-		return viewScaleType;
-	}
 
 	/** @return Downloader for image loading */
 	public ImageDownloader getDownloader() {
 		return downloader;
 	}
 
-	/** @return Auxiliary object for downloader */
-	public Object getExtraForDownloader() {
-		return extraForDownloader;
-	}
-
-	/** @return <b>true</b> - if EXIF params of image should be considered; <b>false</b> - otherwise */
-	public boolean shouldConsiderExifParams() {
-		return considerExifParams;
-	}
 
 	/** @return Decoding options */
 	public Options getDecodingOptions() {

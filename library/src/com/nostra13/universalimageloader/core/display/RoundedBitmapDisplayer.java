@@ -18,7 +18,6 @@ package com.nostra13.universalimageloader.core.display;
 import android.graphics.*;
 import android.graphics.drawable.Drawable;
 
-import com.nostra13.universalimageloader.core.assist.LoadedFrom;
 import com.nostra13.universalimageloader.core.imageaware.ImageAware;
 import com.nostra13.universalimageloader.core.imageaware.ImageViewAware;
 
@@ -52,7 +51,7 @@ public class RoundedBitmapDisplayer implements BitmapDisplayer {
 	}
 
 	@Override
-	public void display(Bitmap bitmap, ImageAware imageAware, LoadedFrom loadedFrom) {
+	public void display(Bitmap bitmap, ImageAware imageAware) {
 		if (!(imageAware instanceof ImageViewAware)) {
 			throw new IllegalArgumentException("ImageAware should wrap ImageView. ImageViewAware is expected.");
 		}

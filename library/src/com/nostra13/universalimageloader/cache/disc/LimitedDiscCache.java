@@ -15,6 +15,7 @@
  *******************************************************************************/
 package com.nostra13.universalimageloader.cache.disc;
 
+import android.util.Log;
 import com.nostra13.universalimageloader.cache.disc.naming.FileNameGenerator;
 import com.nostra13.universalimageloader.core.DefaultConfigurationFactory;
 
@@ -88,6 +89,8 @@ public abstract class LimitedDiscCache extends BaseDiscCache {
 
 	@Override
 	public void put(String key, File file) {
+        Log.i("changhong", "in limit put key:"
+                + key + "file:" + file.getAbsolutePath());
 		int valueSize = getSize(file);
 		int curCacheSize = cacheSize.get();
 

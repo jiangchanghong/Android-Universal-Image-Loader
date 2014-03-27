@@ -46,8 +46,8 @@ public final class IoUtils {
 	 * @return <b>true</b> - if stream copied successfully; <b>false</b> - if copying was interrupted by listener
 	 * @throws IOException
 	 */
-	public static boolean copyStream(InputStream is, OutputStream os, CopyListener listener) throws IOException {
-		return copyStream(is, os, listener, DEFAULT_BUFFER_SIZE);
+	public static boolean copyStream(InputStream is, OutputStream os) throws IOException {
+		return copyStream(is, os, DEFAULT_BUFFER_SIZE);
 	}
 
 	/**
@@ -61,33 +61,20 @@ public final class IoUtils {
 	 * @return <b>true</b> - if stream copied successfully; <b>false</b> - if copying was interrupted by listener
 	 * @throws IOException
 	 */
-	public static boolean copyStream(InputStream is, OutputStream os, CopyListener listener, int bufferSize)
+	public static boolean copyStream(InputStream is, OutputStream os, int bufferSize)
 			throws IOException {
 		int current = 0;
 		final int total = is.available();
 
 		final byte[] bytes = new byte[bufferSize];
 		int count;
-		if (shouldStopLoading(listener, current, total)) return false;
 		while ((count = is.read(bytes, 0, bufferSize)) != -1) {
 			os.write(bytes, 0, count);
 			current += count;
-			if (shouldStopLoading(listener, current, total)) return false;
 		}
 		return true;
 	}
 
-	private static boolean shouldStopLoading(CopyListener listener, int current, int total) {
-		if (listener != null) {
-			boolean shouldContinue = listener.onBytesCopied(current, total);
-			if (!shouldContinue) {
-				if (100 * current / total < CONTINUE_LOADING_PERCENTAGE) {
-					return true; // if loaded more than 75% then continue loading anyway
-				}
-			}
-		}
-		return false;
-	}
 
 	/**
 	 * Reads all data from stream and close it silently
@@ -112,15 +99,5 @@ public final class IoUtils {
 		} catch (Exception e) {
 			// Do nothing
 		}
-	}
-
-	/** Listener and controller for copy process */
-	public static interface CopyListener {
-		/**
-		 * @param current Loaded bytes
-		 * @param total   Total bytes for loading
-		 * @return <b>true</b> - if copying should be continued; <b>false</b> - if copying should be interrupted
-		 */
-		boolean onBytesCopied(int current, int total);
 	}
 }

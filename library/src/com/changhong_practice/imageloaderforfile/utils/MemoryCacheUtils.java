@@ -13,38 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package com.nostra13.example.universalimageloader;
+package com.changhong_practice.imageloaderforfile.utils;
 
-import android.app.Activity;
-import android.view.Menu;
-import android.view.MenuItem;
-
-import com.changhong_practice.imageloaderforfile.core.ImageLoader;
+import com.changhong_practice.imageloaderforfile.core.assist.ImageSize;
 
 /**
+ * Utility for generating of keys for memory cache, key comparing and other work with memory cache
+ *
  * @author Sergey Tarasevich (nostra13[at]gmail[dot]com)
+ * @since 1.6.3
  */
-public abstract class BaseActivity extends Activity {
+public final class MemoryCacheUtils {
 
-	protected ImageLoader imageLoader = ImageLoader.getInstance();
+	private static final String URI_AND_SIZE_SEPARATOR = "_";
+	private static final String WIDTH_AND_HEIGHT_SEPARATOR = "x";
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.main_menu, menu);
-		return true;
+	private MemoryCacheUtils() {
 	}
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-			case R.id.item_clear_memory_cache:
-				imageLoader.clearMemoryCache();
-				return true;
-			case R.id.item_clear_disc_cache:
-				imageLoader.clearDiscCache();
-				return true;
-			default:
-				return false;
-		}
+	/**
+	 * Generates key for memory cache for incoming image (URI + size).<br />
+	 * Pattern for cache key - <b>[imageUri]_[width]x[height]</b>.
+	 */
+	public static String generateKey(String imageUri, ImageSize targetSize) {
+		return new StringBuilder(imageUri).append(URI_AND_SIZE_SEPARATOR).append(targetSize.getWidth()).append(WIDTH_AND_HEIGHT_SEPARATOR).append(targetSize.getHeight()).toString();
 	}
 }

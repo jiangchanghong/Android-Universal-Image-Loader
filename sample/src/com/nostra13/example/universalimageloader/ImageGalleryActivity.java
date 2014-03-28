@@ -27,7 +27,7 @@ import android.widget.Gallery;
 import android.widget.ImageView;
 
 import com.nostra13.example.universalimageloader.Constants.Extra;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.changhong_practice.imageloaderforfile.core.DisplayImageOptions;
 
 /**
  * @author Sergey Tarasevich (nostra13[at]gmail[dot]com)

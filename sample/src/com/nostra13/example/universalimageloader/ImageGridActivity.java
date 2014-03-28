@@ -27,7 +27,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import com.nostra13.example.universalimageloader.Constants.Extra;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.changhong_practice.imageloaderforfile.core.DisplayImageOptions;
 
 /**
  * @author Sergey Tarasevich (nostra13[at]gmail[dot]com)

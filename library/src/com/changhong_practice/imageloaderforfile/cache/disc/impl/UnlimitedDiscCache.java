@@ -13,38 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package com.nostra13.example.universalimageloader;
+package com.changhong_practice.imageloaderforfile.cache.disc.impl;
 
-import android.app.Activity;
-import android.view.Menu;
-import android.view.MenuItem;
+import com.changhong_practice.imageloaderforfile.cache.disc.BaseDiscCache;
+import com.changhong_practice.imageloaderforfile.cache.disc.DiscCacheAware;
+import com.changhong_practice.imageloaderforfile.cache.disc.naming.FileNameGenerator;
 
-import com.changhong_practice.imageloaderforfile.core.ImageLoader;
+import java.io.File;
 
 /**
+ * Default implementation of {@linkplain DiscCacheAware disc cache}. Cache size is unlimited.
+ *
  * @author Sergey Tarasevich (nostra13[at]gmail[dot]com)
+ * @see BaseDiscCache
+ * @since 1.0.0
  */
-public abstract class BaseActivity extends Activity {
+public class UnlimitedDiscCache extends BaseDiscCache {
 
-	protected ImageLoader imageLoader = ImageLoader.getInstance();
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.main_menu, menu);
-		return true;
+	/**
+	 * @param cacheDir          Directory for file caching
+	 * @param fileNameGenerator Name generator for cached files
+	 */
+	public UnlimitedDiscCache(File cacheDir, FileNameGenerator fileNameGenerator) {
+		super(cacheDir, fileNameGenerator);
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-			case R.id.item_clear_memory_cache:
-				imageLoader.clearMemoryCache();
-				return true;
-			case R.id.item_clear_disc_cache:
-				imageLoader.clearDiscCache();
-				return true;
-			default:
-				return false;
-		}
+	public void put(String key, File file) {
+		// Do nothing
 	}
 }

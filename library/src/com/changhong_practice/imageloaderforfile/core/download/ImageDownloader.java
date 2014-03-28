@@ -13,38 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package com.nostra13.example.universalimageloader;
+package com.changhong_practice.imageloaderforfile.core.download;
 
-import android.app.Activity;
-import android.view.Menu;
-import android.view.MenuItem;
-
-import com.changhong_practice.imageloaderforfile.core.ImageLoader;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
+ * Provides retrieving of {@link InputStream} of image by URI.<br />
+ * Implementations have to be thread-safe.
+ *
  * @author Sergey Tarasevich (nostra13[at]gmail[dot]com)
+ * @since 1.4.0
  */
-public abstract class BaseActivity extends Activity {
+public interface ImageDownloader {
+	/**
+	 * Retrieves {@link InputStream} of image by URI.
+	 *
+	 *                 DisplayImageOptions.extraForDownloader(Object)}; can be null
+	 * @return {@link InputStream} of image
+	 * @throws IOException                   if some I/O error occurs during getting image stream
+	 * @throws UnsupportedOperationException if image URI has unsupported scheme(protocol)
+	 */
+	InputStream getStream(String imageUri) throws IOException;
 
-	protected ImageLoader imageLoader = ImageLoader.getInstance();
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.main_menu, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-			case R.id.item_clear_memory_cache:
-				imageLoader.clearMemoryCache();
-				return true;
-			case R.id.item_clear_disc_cache:
-				imageLoader.clearDiscCache();
-				return true;
-			default:
-				return false;
-		}
-	}
 }

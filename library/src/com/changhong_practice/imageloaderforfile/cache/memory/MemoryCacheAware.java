@@ -13,38 +13,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package com.nostra13.example.universalimageloader;
+package com.changhong_practice.imageloaderforfile.cache.memory;
 
-import android.app.Activity;
-import android.view.Menu;
-import android.view.MenuItem;
-
-import com.changhong_practice.imageloaderforfile.core.ImageLoader;
+import java.util.Collection;
 
 /**
+ * Interface for memory cache
+ *
  * @author Sergey Tarasevich (nostra13[at]gmail[dot]com)
+ * @since 1.0.0
  */
-public abstract class BaseActivity extends Activity {
+public interface MemoryCacheAware<K, V> {
+	/**
+	 * Puts value into cache by key
+	 *
+	 * @return <b>true</b> - if value was put into cache successfully, <b>false</b> - if value was <b>not</b> put into
+	 *         cache
+	 */
+	boolean put(K key, V value);
 
-	protected ImageLoader imageLoader = ImageLoader.getInstance();
+	/** Returns value by key. If there is no value for key then null will be returned. */
+	V get(K key);
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.main_menu, menu);
-		return true;
-	}
+	/** Removes item by key */
+	void remove(K key);
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-			case R.id.item_clear_memory_cache:
-				imageLoader.clearMemoryCache();
-				return true;
-			case R.id.item_clear_disc_cache:
-				imageLoader.clearDiscCache();
-				return true;
-			default:
-				return false;
-		}
-	}
+	/** Returns all keys of cache */
+	Collection<K> keys();
+
+	/** Remove all items from cache */
+	void clear();
 }

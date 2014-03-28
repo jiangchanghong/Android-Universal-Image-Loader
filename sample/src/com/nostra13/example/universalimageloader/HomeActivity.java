@@ -19,7 +19,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import com.nostra13.example.universalimageloader.Constants.Extra;
-import com.nostra13.universalimageloader.utils.L;
+import com.changhong_practice.imageloaderforfile.utils.L;
 
 import java.io.File;
 import java.io.FileOutputStream;

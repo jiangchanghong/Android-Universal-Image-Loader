@@ -21,9 +21,9 @@ import android.content.Context;
 import android.os.Build;
 import android.os.StrictMode;
 import com.nostra13.example.universalimageloader.Constants.Config;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.changhong_practice.imageloaderforfile.core.ImageLoader;
+import com.changhong_practice.imageloaderforfile.core.ImageLoaderConfiguration;
+import com.changhong_practice.imageloaderforfile.core.assist.QueueProcessingType;
 
 /**
  * @author Sergey Tarasevich (nostra13[at]gmail[dot]com)

@@ -13,38 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package com.nostra13.example.universalimageloader;
-
-import android.app.Activity;
-import android.view.Menu;
-import android.view.MenuItem;
-
-import com.changhong_practice.imageloaderforfile.core.ImageLoader;
+package com.changhong_practice.imageloaderforfile.cache.disc.naming;
 
 /**
+ * Generates names for files at disc cache
+ *
  * @author Sergey Tarasevich (nostra13[at]gmail[dot]com)
+ * @since 1.3.1
  */
-public abstract class BaseActivity extends Activity {
+public interface FileNameGenerator {
 
-	protected ImageLoader imageLoader = ImageLoader.getInstance();
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.main_menu, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-			case R.id.item_clear_memory_cache:
-				imageLoader.clearMemoryCache();
-				return true;
-			case R.id.item_clear_disc_cache:
-				imageLoader.clearDiscCache();
-				return true;
-			default:
-				return false;
-		}
-	}
+	/** Generates unique file name for image defined by URI */
+	public abstract String generate(String imageUri);
 }

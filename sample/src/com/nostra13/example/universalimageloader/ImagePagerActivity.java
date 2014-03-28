@@ -26,9 +26,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import com.nostra13.example.universalimageloader.Constants.Extra;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+import com.changhong_practice.imageloaderforfile.core.DisplayImageOptions;
+import com.changhong_practice.imageloaderforfile.core.display.FadeInBitmapDisplayer;
 
 /**
  * @author Sergey Tarasevich (nostra13[at]gmail[dot]com)
@@ -58,7 +57,6 @@ public class ImagePagerActivity extends BaseActivity {
 
 			.showImageOnFail(R.drawable.ic_error)
 			.resetViewBeforeLoading(true)
-			.imageScaleType(ImageScaleType.EXACTLY)
 			.bitmapConfig(Bitmap.Config.RGB_565)
 			.displayer(new FadeInBitmapDisplayer(300))
 			.build();

@@ -22,8 +22,8 @@ import android.view.ViewGroup;
 import android.widget.*;
 import android.widget.AdapterView.OnItemClickListener;
 import com.nostra13.example.universalimageloader.Constants.Extra;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
+import com.changhong_practice.imageloaderforfile.core.DisplayImageOptions;
+import com.changhong_practice.imageloaderforfile.core.display.RoundedBitmapDisplayer;
 
 /**
  * @author Sergey Tarasevich (nostra13[at]gmail[dot]com)

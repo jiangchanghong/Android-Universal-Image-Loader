@@ -52,8 +52,8 @@ public class UILApplication extends Application {
                 .threadPriority(Thread.NORM_PRIORITY - 2)
                 .tasksProcessingOrder(QueueProcessingType.LIFO)
                 .smallWight(114).samllHeigh(114)
-                .bigWight(600)
-                .bigHeigh(800)
+                .bigWight(720)
+                .bigHeigh(1280)
                 .writeDebugLogs() // Remove for release app
                 .build();
         // Initialize ImageLoader with configuration.

@@ -18,7 +18,6 @@ package com.nostra13.universalimageloader.cache.disc.impl;
 import com.nostra13.universalimageloader.cache.disc.BaseDiscCache;
 import com.nostra13.universalimageloader.cache.disc.DiscCacheAware;
 import com.nostra13.universalimageloader.cache.disc.naming.FileNameGenerator;
-import com.nostra13.universalimageloader.core.DefaultConfigurationFactory;
 
 import java.io.File;
 
@@ -30,11 +29,6 @@ import java.io.File;
  * @since 1.0.0
  */
 public class UnlimitedDiscCache extends BaseDiscCache {
-
-	/** @param cacheDir Directory for file caching */
-	public UnlimitedDiscCache(File cacheDir) {
-		this(cacheDir, DefaultConfigurationFactory.createFileNameGenerator());
-	}
 
 	/**
 	 * @param cacheDir          Directory for file caching

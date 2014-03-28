@@ -18,8 +18,6 @@ package com.nostra13.universalimageloader.core;
 import android.content.Context;
 import android.graphics.Bitmap;
 import com.nostra13.universalimageloader.cache.disc.DiscCacheAware;
-import com.nostra13.universalimageloader.cache.disc.impl.DiscCacheForBigImage;
-import com.nostra13.universalimageloader.cache.disc.impl.DiscCacheForSmallImage;
 import com.nostra13.universalimageloader.cache.disc.impl.TotalSizeLimitedDiscCache;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
 import com.nostra13.universalimageloader.cache.disc.naming.FileNameGenerator;
@@ -37,12 +35,7 @@ import com.nostra13.universalimageloader.core.download.ImageDownloader;
 import com.nostra13.universalimageloader.utils.StorageUtils;
 
 import java.io.File;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.Executor;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ThreadFactory;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -87,7 +80,7 @@ public class DefaultConfigurationFactory {
                                                       ) {
 
         File cacheDir = StorageUtils.getSmallCacheDirectory(context);
-        return new DiscCacheForSmallImage(cacheDir);
+        return new UnlimitedDiscCache(cacheDir,fileNameGenerator);
 
     }
 
@@ -95,7 +88,7 @@ public class DefaultConfigurationFactory {
                                                    ) {
 
         File cacheDir = StorageUtils.getBigCacheDirectory(context);
-        return new DiscCacheForBigImage(cacheDir);
+        return new UnlimitedDiscCache(cacheDir,fileNameGenerator);
 
     }
 

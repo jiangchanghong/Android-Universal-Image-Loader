@@ -47,7 +47,8 @@ public abstract class LimitedMemoryCache<K, V> extends BaseMemoryCache<K, V> {
 	 * limit then first object is deleted (but it continue exist at {@link #softMap} and can be collected by GC at any
 	 * time)
 	 */
-	private final List<V> hardCache = Collections.synchronizedList(new LinkedList<V>());
+	private final List<V> hardCache =
+            Collections.synchronizedList(new LinkedList<V>());
 
 	/** @param sizeLimit Maximum size for cache (in bytes) */
 	public LimitedMemoryCache(int sizeLimit) {

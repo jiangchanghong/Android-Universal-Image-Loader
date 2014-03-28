@@ -23,7 +23,8 @@ import android.provider.MediaStore;
 import android.provider.MediaStore.Images.ImageColumns;
 import android.util.Log;
 
-import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 // LocalImage represents an image in the local storage.
 public class LocalImage  {
@@ -36,11 +37,9 @@ public class LocalImage  {
     Context context;
     LocalImage(Context context) {
         this.context = context;
-//        get();
 
     }
 
-    File file;
     public void get() {
         Log.i("changhong", "count:");
         contentResolver = context.getContentResolver();
@@ -51,21 +50,24 @@ public class LocalImage  {
             return;
         }
 //        ArrayList<String> list = new ArrayList<String>();
-        String[] str = new String[cursor.getCount()];
+        String[] str;
+        List<String> list = new ArrayList<String>();
         int i = 0;
-        Log.i("changhong", "count:" + str.length);
         cursor.moveToNext();
         while (cursor.moveToNext()) {
 
+            i++;
             String tem = cursor.getString(INDEX_DATA);
-            if (!tem.contains("DCIM"))continue;
-            str[i++] =tem;
-            if (i==5) {
-                file = new File(tem);
-            }
-            if (i>100)break;
+            list.add(tem);
+            if (i>500) break;
             Log.i("changhong", tem);
         }
+        str = new String[list.size()];
+        i=0;
+        for (String s : list) {
+            str[i++] = s;
+        }
+
         Constants.IMAGES = str;
         cursor.close();
     }

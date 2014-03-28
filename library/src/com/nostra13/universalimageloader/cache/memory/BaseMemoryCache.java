@@ -39,7 +39,6 @@ public abstract class BaseMemoryCache<K, V> implements MemoryCacheAware<K, V> {
 		}
 		return result;
 	}
-
 	@Override
 	public boolean put(K key, V value) {
 		softMap.put(key, createReference(value));

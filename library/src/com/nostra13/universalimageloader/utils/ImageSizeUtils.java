@@ -15,11 +15,9 @@
  *******************************************************************************/
 package com.nostra13.universalimageloader.utils;
 
-import android.graphics.BitmapFactory;
 import android.opengl.GLES10;
 import com.nostra13.universalimageloader.core.assist.ImageSize;
 import com.nostra13.universalimageloader.core.assist.ViewScaleType;
-import com.nostra13.universalimageloader.core.imageaware.ImageAware;
 
 import javax.microedition.khronos.opengles.GL10;
 
@@ -44,49 +42,6 @@ public final class ImageSizeUtils {
 
     private ImageSizeUtils() {
     }
-
-    /**
-     * Defines target size for image aware view. Size is defined by target
-     * {@link com.nostra13.universalimageloader.core.imageaware.ImageAware view} parameters, configuration
-     * parameters or device display dimensions.<br />
-     */
-    public static ImageSize defineTargetSizeForView(ImageAware imageAware, ImageSize maxImageSize) {
-        int width = imageAware.getWidth();
-        if (width <= 0) width = maxImageSize.getWidth();
-
-        int height = imageAware.getHeight();
-        if (height <= 0) height = maxImageSize.getHeight();
-
-        return new ImageSize(width, height);
-    }
-
-    /**
-     * Computes sample size for downscaling image size (<b>srcSize</b>) to view size (<b>targetSize</b>). This sample
-     * size is used during
-     * {@linkplain BitmapFactory#decodeStream(java.io.InputStream, android.graphics.Rect, android.graphics.BitmapFactory.Options)
-     * decoding image} to bitmap.<br />
-     * <br />
-     * <b>Examples:</b><br />
-     * <p/>
-     * <pre>
-     * srcSize(100x100), targetSize(10x10), powerOf2Scale = true -> sampleSize = 8
-     * srcSize(100x100), targetSize(10x10), powerOf2Scale = false -> sampleSize = 10
-     *
-     * srcSize(100x100), targetSize(20x40), viewScaleType = FIT_INSIDE -> sampleSize = 5
-     * srcSize(100x100), targetSize(20x40), viewScaleType = CROP       -> sampleSize = 2
-     * </pre>
-     * <p/>
-     * <br />
-     * The sample size is the number of pixels in either dimension that correspond to a single pixel in the decoded
-     * bitmap. For example, inSampleSize == 4 returns an image that is 1/4 the width/height of the original, and 1/16
-     * the number of pixels. Any value <= 1 is treated the same as 1.
-     *
-     * @param srcSize       Original (image) size
-     * @param targetSize    Target (view) size
-     * @param viewScaleType {@linkplain ViewScaleType Scale type} for placing image in view
-     * @param powerOf2Scale <i>true</i> - if sample size be a power of 2 (1, 2, 4, 8, ...)
-     * @return Computed sample size
-     */
     public static int computeImageSampleSize(ImageSize srcSize,
                                              ImageSize targetSize,
                                              boolean powerOf2Scale) {

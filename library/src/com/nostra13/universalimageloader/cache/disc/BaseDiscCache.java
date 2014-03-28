@@ -16,7 +16,6 @@
 package com.nostra13.universalimageloader.cache.disc;
 
 import com.nostra13.universalimageloader.cache.disc.naming.FileNameGenerator;
-import com.nostra13.universalimageloader.core.DefaultConfigurationFactory;
 
 import java.io.File;
 
@@ -35,11 +34,6 @@ public abstract class BaseDiscCache implements DiscCacheAware {
 	protected File cacheDir;
 
 	private FileNameGenerator fileNameGenerator;
-
-	public BaseDiscCache(File cacheDir) {
-		this(cacheDir, DefaultConfigurationFactory.createFileNameGenerator());
-	}
-
 	public BaseDiscCache(File cacheDir, FileNameGenerator fileNameGenerator) {
 		if (cacheDir == null) {
 			throw new IllegalArgumentException(String.format(ERROR_ARG_NULL, "cacheDir"));

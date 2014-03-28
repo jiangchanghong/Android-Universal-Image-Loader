@@ -16,16 +16,15 @@
 package com.nostra13.example.universalimageloader;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.os.Environment;
-import android.util.Log;
 import android.view.View;
 import com.nostra13.example.universalimageloader.Constants.Extra;
 import com.nostra13.universalimageloader.utils.L;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 import static com.nostra13.example.universalimageloader.Constants.IMAGES;
 
@@ -53,56 +52,9 @@ public class HomeActivity extends BaseActivity {
 
         LocalImage localImage = new LocalImage(getApplicationContext());
         localImage.get();
-        File file = localImage.file;
-        try {
-
-            files(file);
-        } catch (Exception w) {
-            w.printStackTrace();
-        }
 
 
-    }
 
-    private void files(final File file) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                BitmapFactory.Options options = new BitmapFactory.Options();
-                options.inJustDecodeBounds = true;
-                BitmapFactory.decodeFile(file.getAbsolutePath(),options);
-                int w = options.outWidth;
-                int h = options.outHeight;
-                Log.i("changhong", "" + w + h);
-                options.inJustDecodeBounds = false;
-                options.inSampleSize = 1;
-                Bitmap bitmap = BitmapFactory.
-                        decodeFile(file.getAbsolutePath(), options);
-
-                Log.i("changhong", "" + bitmap.getWidth() + bitmap.getHeight());
-
-                File outfile = Environment.getExternalStorageDirectory();
-                outfile = new File(outfile, "aaaa.jpg");
-                BufferedOutputStream outputStream = null;
-
-
-                try {
-                    outputStream = new BufferedOutputStream(new FileOutputStream(outfile));
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 1, outputStream
-                    );
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } finally {
-                    try {
-                        outputStream.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-                }
-
-            }
-        }).start();
     }
 
     public void onImageListClick(View view) {

@@ -222,7 +222,7 @@ final class LoadAndDisplayImageTask implements Runnable {
         try {
             BufferedOutputStream outputStream =
                     new BufferedOutputStream(new FileOutputStream(targetFile));
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 80, outputStream);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 90, outputStream);
 //            loaded = downloadImage(targetFile);
             IoUtils.closeSilently(outputStream);
         } catch (IOException e) {

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.nostra13.example.universalimageloader;
+package com.nostra13.example.changhong;
 
 import android.content.ContentResolver;
 import android.content.Context;
@@ -22,20 +22,18 @@ import android.database.Cursor;
 import android.provider.MediaStore;
 import android.provider.MediaStore.Images.ImageColumns;
 import android.util.Log;
+import com.nostra13.example.universalimageloader.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
 
 // LocalImage represents an image in the local storage.
 public class LocalImage  {
-    public static final int THUMBNAIL_TARGET_SIZE = 640;
-    public static final int MICROTHUMBNAIL_TARGET_SIZE = 200;
 
-    public static final String TAG = "LocalImage";
 
     ContentResolver contentResolver;
     Context context;
-    LocalImage(Context context) {
+    public LocalImage(Context context) {
         this.context = context;
 
     }
@@ -58,9 +56,17 @@ public class LocalImage  {
 
             i++;
             String tem = cursor.getString(INDEX_DATA);
-            list.add(tem);
-            if (i>500) break;
             Log.i("changhong", tem);
+            String bucketid = cursor.getString(INDEX_BUCKET_ID);
+            Log.i("changhong", bucketid);
+            String caption = cursor.getString(INDEX_CAPTION);
+            Log.i("changhong", caption);
+            String onre = cursor.getString(INDEX_ORIENTATION);
+            Log.i("changhong", onre);
+
+            list.add(tem);
+            if (i>4) break;
+
         }
         str = new String[list.size()];
         i=0;

@@ -18,8 +18,10 @@ package com.nostra13.example.universalimageloader;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import com.nostra13.example.universalimageloader.Constants.Extra;
 import com.changhong_practice.imageloaderforfile.utils.L;
+import com.nostra13.example.changhong.AlubumUtil;
+import com.nostra13.example.changhong.Home;
+import com.nostra13.example.universalimageloader.Constants.Extra;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -50,10 +52,11 @@ public class HomeActivity extends BaseActivity {
     private void init() {
 
 
-        LocalImage localImage = new LocalImage(getApplicationContext());
-        localImage.get();
+//        LocalImage localImage = new LocalImage(getApplicationContext());
+//        localImage.get();
 
-
+        AlubumUtil.getInstance().
+                init_All_aulbum(getApplicationContext());
 
     }
 
@@ -76,7 +79,7 @@ public class HomeActivity extends BaseActivity {
     }
 
     public void onImageGalleryClick(View view) {
-        Intent intent = new Intent(this, ImageGalleryActivity.class);
+        Intent intent = new Intent(this, Home.class);
         intent.putExtra(Extra.IMAGES, IMAGES);
         startActivity(intent);
     }
